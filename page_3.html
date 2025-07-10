@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>粉末冶金における形状起因不具合の現状課題</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><style>
+        body {
+            width: 1280px; 
+            min-height: 720px; 
+            margin: 0;
+            padding: 0;
+            font-family: "Meiryo UI", "Segoe UI", sans-serif;
+            background-color: #F5F5F5;
+            
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            
+        }
+        .title {
+            font-family: "Meiryo UI", "Segoe UI", sans-serif;
+            font-weight: bold;
+            color: #1C4E80;
+        }
+        .accent {
+            color: #FF6B35;
+        }
+        .grid-pattern {
+            background-image: linear-gradient(rgba(169, 183, 192, 0.1) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(169, 183, 192, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .issue-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid #1C4E80;
+            height: 100%;
+        }
+        .issue-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .icon-container {
+            background-color: rgba(28, 78, 128, 0.1);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .content-container {
+            height: calc(100% - 160px);
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="slide bg-white flex flex-col items-center justify-start relative">
+<!-- Grid Pattern Background -->
+<div class="grid-pattern"></div>
+<!-- Header -->
+<div class="w-full bg-gray-100 py-5 px-12 flex items-center border-b-4 border-blue-700 z-10">
+<h1 class="title text-4xl">粉末冶金における形状起因不具合の現状課題</h1>
+<div class="ml-6 text-gray-600 text-xl">現状の不具合管理プロセスが抱える6つの主要課題とその事業影響</div>
+</div>
+<!-- Content -->
+<div class="content-container w-full px-12 py-6 z-10">
+<div class="grid grid-cols-2 gap-6">
+<!-- Issue 1 -->
+<div class="issue-card bg-white p-5 rounded-lg shadow-sm flex">
+<div class="icon-container mr-4">
+<i class="fas fa-user-cog text-2xl text-blue-700"></i>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-gray-800">属人的な判定プロセス</h3>
+<p class="text-gray-600 mt-1">不具合発生の可能性判断がベテラン技術者の経験と暗黙知に大きく依存。判定基準が個人に偏り、<span class="accent font-medium">技術継承が円滑に進まない</span>状況が発生。</p>
+</div>
+</div>
+<!-- Issue 2 -->
+<div class="issue-card bg-white p-5 rounded-lg shadow-sm flex">
+<div class="icon-container mr-4">
+<i class="fas fa-search text-2xl text-blue-700"></i>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-gray-800">検索・索引システムの限界</h3>
+<p class="text-gray-600 mt-1">既存データベースは「製品目」「材質」「顧客名」といったテキスト情報のみに基づき、<span class="accent font-medium">形状に関連する不具合事例の検索が困難</span>。</p>
+</div>
+</div>
+<!-- Issue 3 -->
+<div class="issue-card bg-white p-5 rounded-lg shadow-sm flex">
+<div class="icon-container mr-4">
+<i class="fas fa-money-bill-wave text-2xl text-blue-700"></i>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-gray-800">高額な失敗コスト</h3>
+<p class="text-gray-600 mt-1">新規部品の設計・試作段階で形状起因の不具合を見逃した場合、<span class="accent font-medium">1部品あたり数百万円規模の損失</span>が発生。金型修正や製品廃棄によるコスト圧迫。</p>
+</div>
+</div>
+<!-- Issue 4 -->
+<div class="issue-card bg-white p-5 rounded-lg shadow-sm flex">
+<div class="icon-container mr-4">
+<i class="fas fa-brain text-2xl text-blue-700"></i>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-gray-800">活用困難な組織知見</h3>
+<p class="text-gray-600 mt-1">「特定の肉厚や角度で焼結割れが発生しやすい」といった知見が経験則として存在するが、<span class="accent font-medium">体系的に整理・データベース化されていない</span>ため活用困難。</p>
+</div>
+</div>
+<!-- Issue 5 -->
+<div class="issue-card bg-white p-5 rounded-lg shadow-sm flex">
+<div class="icon-container mr-4">
+<i class="fas fa-puzzle-piece text-2xl text-blue-700"></i>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-gray-800">特殊形状への対応困難</h3>
+<p class="text-gray-600 mt-1">製品設計の高度化に伴い、<span class="accent font-medium">従来の分類では対応できない複雑かつ特殊な形状</span>を持つ部品が増加。過去の経験則が通用しないケースの増加。</p>
+</div>
+</div>
+<!-- Issue 6 -->
+<div class="issue-card bg-white p-5 rounded-lg shadow-sm flex">
+<div class="icon-container mr-4">
+<i class="fas fa-exclamation-triangle text-2xl text-blue-700"></i>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-gray-800">品質リスクの増大</h3>
+<p class="text-gray-600 mt-1">経験の浅い担当者による判定ミスの増加により、<span class="accent font-medium">不具合の発生率が上昇傾向</span>。企業の品質保証体制における重大なリスクとなっている。</p>
+</div>
+</div>
+</div>
+<!-- Business Impact Summary -->
+<div class="mt-6">
+<div class="bg-gray-100 p-4 rounded-lg border-l-4 border-orange-500">
+<h3 class="text-lg font-semibold flex items-center">
+<i class="fas fa-chart-line text-orange-500 mr-2"></i>
+                    事業への影響
+                </h3>
+<p class="text-gray-700">これらの課題は、短期的には<span class="accent font-medium">コスト増加</span>を招き、長期的には<span class="accent font-medium">技術継承の断絶</span>や<span class="accent font-medium">競争力低下</span>につながる重大なリスク要因となっています。</p>
+</div>
+</div>
+</div>
+<!-- Abstract Tech Elements (for visual consistency) -->
+<div class="absolute bottom-24 right-12 flex space-x-2 z-0 opacity-30">
+<div class="w-20 h-20 rounded-full border-4 border-blue-200"></div>
+<div class="w-14 h-14 rounded-full border-4 border-blue-400 mt-6"></div>
+<div class="w-10 h-10 rounded-full border-4 border-blue-600 mt-3"></div>
+</div>
+<!-- Footer -->
+<div class="absolute bottom-6 w-full flex justify-between px-12 text-sm text-gray-500 z-10">
+<div>形状起因不具合検知システム 実装アプローチのご提案</div>
+<div>3 / 12</div>
+</div>
+</div>
+</body></html>

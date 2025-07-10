@@ -1,0 +1,251 @@
+<!DOCTYPE html><html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>実現可能性を80-90%まで向上させる体系的調査</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><style>
+        body {
+            width: 1280px; 
+            min-height: 720px; 
+            margin: 0;
+            padding: 0;
+            font-family: "Meiryo UI", "Segoe UI", sans-serif;
+            background-color: #F5F5F5;
+            
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            
+        }
+        .title {
+            font-family: "Meiryo UI", "Segoe UI", sans-serif;
+            font-weight: bold;
+            color: #1C4E80;
+        }
+        .accent {
+            color: #FF6B35;
+        }
+        .grid-pattern {
+            background-image: linear-gradient(rgba(169, 183, 192, 0.1) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(169, 183, 192, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .investigation-box {
+            border-left: 4px solid #1C4E80;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .investigation-box:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .content-area {
+            height: calc(100% - 160px);
+            
+        }
+        .chart-container {
+            position: absolute;
+            top: 28px;
+            right: 12px;
+            z-index: 10;
+            background-color: white;
+            background-opacity: 0.8;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body>
+<div class="slide bg-white flex flex-col items-center justify-start relative">
+<!-- Grid Pattern Background -->
+<div class="grid-pattern"></div>
+<!-- Header -->
+<div class="w-full bg-gray-100 py-5 px-12 flex items-center border-b-4 border-blue-700 z-10">
+<h1 class="title text-4xl">実現可能性を<span class="accent">80-90%</span>まで向上させる体系的調査</h1>
+</div>
+<!-- Visualization of Feasibility Improvement -->
+<div class="chart-container">
+<div class="w-64 h-20" id="feasibility-chart"></div>
+<div class="text-center text-sm text-gray-600 mt-1">実現可能性の向上目標</div>
+</div>
+<!-- Main Content -->
+<div class="content-area w-full px-12 py-6 z-10">
+<div class="grid grid-cols-2 gap-8 h-full">
+<!-- Investigation Area 1 -->
+<div class="investigation-box bg-blue-50 p-6 rounded-r-lg">
+<div class="flex items-center mb-4">
+<div class="bg-blue-100 rounded-full p-3 mr-4">
+<i class="fas fa-drafting-compass text-xl text-blue-700"></i>
+</div>
+<h3 class="text-2xl font-semibold text-gray-800">図面データ分析<span class="text-blue-600 text-lg ml-2">（定量調査）</span></h3>
+</div>
+<ul class="ml-4 space-y-3">
+<li class="flex items-start">
+<i class="fas fa-check-circle text-blue-600 mt-1 mr-2"></i>
+<span>投影図vs3面図の処理精度比較実験</span>
+</li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-blue-600 mt-1 mr-2"></i>
+<span>図面品質（解像度、フォーマット統一性）の影響度測定</span>
+</li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-blue-600 mt-1 mr-2"></i>
+<span>CADデータ活用可能性の技術検証</span>
+</li>
+</ul>
+</div>
+<!-- Investigation Area 2 -->
+<div class="investigation-box bg-orange-50 p-6 rounded-r-lg">
+<div class="flex items-center mb-4">
+<div class="bg-orange-100 rounded-full p-3 mr-4">
+<i class="fas fa-user-tie text-xl text-orange-600"></i>
+</div>
+<h3 class="text-2xl font-semibold text-gray-800">不具合パターン体系化<span class="text-orange-600 text-lg ml-2">（定性調査）</span></h3>
+</div>
+<ul class="ml-4 space-y-3">
+<li class="flex items-start">
+<i class="fas fa-check-circle text-orange-600 mt-1 mr-2"></i>
+<span>ベテラン3-5名へのインタビュー（各2時間×3回）</span>
+</li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-orange-600 mt-1 mr-2"></i>
+<span>肉厚以外の不具合要因15-20項目の特定・優先順位付け</span>
+</li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-orange-600 mt-1 mr-2"></i>
+<span>判定ルールの形式知化（if-thenルール50-100個）</span>
+</li>
+</ul>
+</div>
+<!-- Investigation Area 3 -->
+<div class="investigation-box bg-green-50 p-6 rounded-r-lg">
+<div class="flex items-center mb-4">
+<div class="bg-green-100 rounded-full p-3 mr-4">
+<i class="fas fa-cubes text-xl text-green-600"></i>
+</div>
+<h3 class="text-2xl font-semibold text-gray-800">部品分類最適化</h3>
+</div>
+<ul class="ml-4 space-y-3">
+<li class="flex items-start">
+<i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+<span>現在の部品分類vs形状ベース分類の効果比較</span>
+</li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+<span>特殊形状部品（全体の何%？）への対応方法検討</span>
+</li>
+<li class="flex items-start">
+<i class="fas fa-lightbulb text-yellow-500 mt-1 mr-2"></i>
+<span class="text-gray-700">新規クラスタリング手法の提案と効果検証</span>
+</li>
+</ul>
+</div>
+<!-- Investigation Area 4 -->
+<div class="investigation-box bg-purple-50 p-6 rounded-r-lg">
+<div class="flex items-center mb-4">
+<div class="bg-purple-100 rounded-full p-3 mr-4">
+<i class="fas fa-cogs text-xl text-purple-600"></i>
+</div>
+<h3 class="text-2xl font-semibold text-gray-800">運用要件明確化</h3>
+</div>
+<ul class="ml-4 space-y-3">
+<li class="flex items-start">
+<i class="fas fa-check-circle text-purple-600 mt-1 mr-2"></i>
+<span>許容誤検知率・見逃し率の設定（業務影響度から逆算）</span>
+</li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-purple-600 mt-1 mr-2"></i>
+<span>既存設計プロセスへの組み込み方法の検討</span>
+</li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-purple-600 mt-1 mr-2"></i>
+<span>ユーザーインターフェース要件の定義</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Bottom Summary -->
+<div class="w-full flex justify-center z-10 px-12 mt-4">
+<div class="bg-gray-100 rounded-lg px-8 py-4 shadow-sm max-w-3xl">
+<div class="flex items-center">
+<i class="fas fa-lightbulb text-yellow-500 text-xl mr-3"></i>
+<p class="text-gray-700">
+                    これらの体系的調査を通じて、<span class="font-bold">技術・データ・業務</span>の3側面から実現可能性を高め、
+                    確実な成果創出へとつなげます。
+                </p>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="absolute bottom-6 w-full flex justify-between px-12 text-sm text-gray-500 z-10">
+<div>形状起因不具合検知システム 実装アプローチのご提案</div>
+<div>8 / 12</div>
+</div>
+</div>
+<script>
+    // Simple D3.js visualization for feasibility improvement
+    document.addEventListener("DOMContentLoaded", function() {
+        const svg = d3.select("#feasibility-chart")
+            .append("svg")
+            .attr("width", 260)
+            .attr("height", 80);
+        
+        // Data for current and target feasibility
+        const data = [
+            { label: "現状", value: 55, color: "#A9B7C0" },
+            { label: "目標", value: 85, color: "#FF6B35" }
+        ];
+        
+        // Draw bars
+        svg.selectAll("rect.bar")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("x", 70)
+            .attr("y", (d, i) => i * 30 + 5)
+            .attr("width", d => d.value * 1.5)
+            .attr("height", 20)
+            .attr("rx", 3)
+            .attr("fill", d => d.color);
+        
+        // Add labels
+        svg.selectAll("text.label")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "label")
+            .attr("x", 65)
+            .attr("y", (d, i) => i * 30 + 18)
+            .attr("text-anchor", "end")
+            .attr("font-size", "12px")
+            .attr("fill", "#333")
+            .text(d => d.label);
+        
+        // Add values
+        svg.selectAll("text.value")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "value")
+            .attr("x", d => 75 + d.value * 1.5)
+            .attr("y", (d, i) => i * 30 + 18)
+            .attr("text-anchor", "start")
+            .attr("font-size", "12px")
+            .attr("fill", "#333")
+            .text(d => d.value + "%");
+    });
+</script>
+</body></html>

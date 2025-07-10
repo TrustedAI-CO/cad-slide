@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>年間2000-5000万円のコスト削減効果</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><style>
+        body {
+            width: 1280px; 
+            min-height: 720px; 
+            margin: 0;
+            padding: 0;
+            font-family: "Meiryo UI", "Segoe UI", sans-serif;
+            background-color: #F5F5F5;
+            
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            
+        }
+        .title {
+            font-family: "Meiryo UI", "Segoe UI", sans-serif;
+            font-weight: bold;
+            color: #1C4E80;
+        }
+        .accent {
+            color: #FF6B35;
+        }
+        .grid-pattern {
+            background-image: linear-gradient(rgba(169, 183, 192, 0.1) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(169, 183, 192, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .benefit-card {
+            background-color: white;
+            border-left: 4px solid #1C4E80;
+            transition: all 0.3s ease;
+        }
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .chart-container {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 10px;
+        }
+        .roi-highlight {
+            background-color: rgba(255, 107, 53, 0.1);
+            border: 1px dashed #FF6B35;
+        }
+        .content-container {
+            height: calc(100% - 140px);
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="slide bg-white flex flex-col items-center justify-start relative">
+<!-- Grid Pattern Background -->
+<div class="grid-pattern"></div>
+<!-- Header -->
+<div class="w-full bg-gray-100 py-5 px-12 flex items-center border-b-4 border-blue-700 z-10">
+<h1 class="title text-4xl">年間2000-5000万円のコスト削減効果</h1>
+<div class="ml-6 text-gray-600 text-xl">システム導入による直接・間接的な効果とROI試算</div>
+</div>
+<!-- Content -->
+<div class="content-container w-full px-12 py-4 z-10">
+<div class="flex flex-wrap">
+<!-- Left Column - Benefits -->
+<div class="w-1/2 pr-6">
+<h3 class="text-2xl font-semibold text-gray-800 mb-3">
+<i class="fas fa-chart-pie text-blue-700 mr-2"></i>期待される効果
+                </h3>
+<!-- Direct Benefits -->
+<div class="benefit-card p-4 mb-3 rounded shadow-sm">
+<h4 class="text-xl font-semibold flex items-center">
+<i class="fas fa-dollar-sign text-green-600 mr-2"></i>直接的コスト削減
+                    </h4>
+<div class="ml-8 mt-2">
+<div class="flex justify-between mb-1">
+<span>不具合部品の廃棄コスト削減</span>
+<span class="font-semibold accent">1,000〜3,000万円/年</span>
+</div>
+<div class="text-sm text-gray-600">現状：年間3,000〜6,000万円に対し30〜50%削減</div>
+</div>
+</div>
+<!-- Indirect Benefits -->
+<div class="benefit-card p-4 mb-3 rounded shadow-sm">
+<h4 class="text-xl font-semibold flex items-center">
+<i class="fas fa-clock text-blue-600 mr-2"></i>間接的効果
+                    </h4>
+<div class="ml-8 mt-2">
+<div class="flex justify-between mb-1">
+<span>判定作業の工数削減</span>
+<span class="font-semibold accent">500〜800万円/年</span>
+</div>
+<div class="text-sm text-gray-600">月40時間の作業時間削減を人件費換算</div>
+<div class="flex justify-between mt-2 mb-1">
+<span>顧客信頼度の向上</span>
+<span class="font-semibold text-gray-600">定量化困難（価値大）</span>
+</div>
+</div>
+</div>
+<!-- Intellectual Assets -->
+<div class="benefit-card p-4 rounded shadow-sm">
+<h4 class="text-xl font-semibold flex items-center">
+<i class="fas fa-brain text-purple-600 mr-2"></i>知的資産価値
+                    </h4>
+<div class="ml-8 mt-2">
+<div class="flex justify-between mb-1">
+<span>後継者育成期間の短縮</span>
+<span class="font-semibold text-gray-600">2年 → 6ヶ月</span>
+</div>
+<div class="flex justify-between mt-2">
+<span>競争優位性の確立</span>
+<span class="font-semibold text-gray-600">定量化困難（価値大）</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column - ROI and Chart -->
+<div class="w-1/2 pl-6">
+<!-- ROI Metrics -->
+<h3 class="text-2xl font-semibold text-gray-800 mb-3">
+<i class="fas fa-calculator text-blue-700 mr-2"></i>投資回収分析
+                </h3>
+<div class="bg-blue-50 p-4 rounded mb-4">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="text-gray-600">システム総投資額</p>
+<p class="text-xl font-semibold">1,500〜2,200万円</p>
+</div>
+<div class="roi-highlight p-2 rounded">
+<p class="text-gray-600">投資回収期間</p>
+<p class="text-xl font-semibold accent">1.5〜2年</p>
+</div>
+<div>
+<p class="text-gray-600">年間削減効果（合計）</p>
+<p class="text-xl font-semibold">1,500〜3,800万円</p>
+</div>
+<div class="roi-highlight p-2 rounded">
+<p class="text-gray-600">5年間NPV（割引率5%）</p>
+<p class="text-xl font-semibold accent">8,000万円〜1.2億円</p>
+</div>
+</div>
+</div>
+<!-- ROI Chart -->
+<div class="chart-container" id="roi-chart"></div>
+<div class="bg-gray-50 p-3 rounded">
+<h4 class="font-semibold flex items-center">
+<i class="fas fa-lightbulb text-yellow-500 mr-2"></i>結論
+                    </h4>
+<p class="text-gray-700">本システムへの投資は短期的なコスト削減に留まらず、技術継承や競争力強化といった長期的な企業価値向上に大きく貢献する、<span class="accent font-semibold">戦略的価値の高い投資</span>です。</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="absolute bottom-6 w-full flex justify-between px-12 text-sm text-gray-500 z-10">
+<div>形状起因不具合検知システム 実装アプローチのご提案</div>
+<div>9 / 12</div>
+</div>
+</div>
+<script>
+    // D3.js ROI Chart
+    document.addEventListener('DOMContentLoaded', function() {
+        // Data based on the document
+        const data = [
+            {year: 0, cumulative: -2000},
+            {year: 1, cumulative: -2000 + 2500},
+            {year: 2, cumulative: -2000 + 2500 + 2500},
+            {year: 3, cumulative: -2000 + 2500 + 2500 + 2500},
+            {year: 4, cumulative: -2000 + 2500 + 2500 + 2500 + 2500},
+            {year: 5, cumulative: -2000 + 2500 + 2500 + 2500 + 2500 + 2500}
+        ];
+        
+        // Wait a moment for the DOM to be fully ready
+        setTimeout(() => {
+            const chartContainer = document.getElementById('roi-chart');
+            if (!chartContainer) return;
+            
+            const margin = {top: 20, right: 20, bottom: 30, left: 50};
+            const width = chartContainer.clientWidth - margin.left - margin.right;
+            const height = chartContainer.clientHeight - margin.top - margin.bottom;
+            
+            // Clear any existing SVG
+            chartContainer.innerHTML = '';
+            
+            const svg = d3.select('#roi-chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+            
+            // X scale
+            const x = d3.scaleLinear()
+                .domain([0, 5])
+                .range([0, width]);
+                
+            // Y scale
+            const y = d3.scaleLinear()
+                .domain([-2500, 10000])
+                .range([height, 0]);
+                
+            // Add X axis
+            svg.append('g')
+                .attr('transform', `translate(0,${height/2})`)
+                .call(d3.axisBottom(x).tickFormat(d => `${d}年目`));
+                
+            // Add Y axis
+            svg.append('g')
+                .call(d3.axisLeft(y).tickFormat(d => `${d/1000}百万円`));
+                
+            // Add the line
+            svg.append('path')
+                .datum(data)
+                .attr('fill', 'none')
+                .attr('stroke', '#1C4E80')
+                .attr('stroke-width', 3)
+                .attr('d', d3.line()
+                    .x(d => x(d.year))
+                    .y(d => y(d.cumulative))
+                );
+                
+            // Add the points
+            svg.selectAll('circle')
+                .data(data)
+                .enter()
+                .append('circle')
+                .attr('cx', d => x(d.year))
+                .attr('cy', d => y(d.cumulative))
+                .attr('r', 5)
+                .attr('fill', d => d.cumulative < 0 ? '#FF6B35' : '#1C4E80');
+                
+            // Add break-even line
+            svg.append('line')
+                .attr('x1', 0)
+                .attr('y1', y(0))
+                .attr('x2', width)
+                .attr('y2', y(0))
+                .attr('stroke', '#FF6B35')
+                .attr('stroke-width', 1)
+                .attr('stroke-dasharray', '5,5');
+                
+            // Add break-even text
+            svg.append('text')
+                .attr('x', x(1.5))
+                .attr('y', y(500))
+                .attr('text-anchor', 'middle')
+                .attr('fill', '#FF6B35')
+                .text('投資回収ポイント：約1.5-2年');
+                
+            // Add title
+            svg.append('text')
+                .attr('x', width / 2)
+                .attr('y', 0)
+                .attr('text-anchor', 'middle')
+                .attr('font-weight', 'bold')
+                .text('投資回収シミュレーション');
+        }, 100);
+    });
+</script>
+</body></html>

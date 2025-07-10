@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>形状起因不具合検知システム - 完全版プレゼンテーション</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px 0;
+            font-family: "Meiryo UI", "Segoe UI", sans-serif;
+            background-color: #f0f0f0;
+            overflow-x: auto;
+            min-width: 1320px;
+        }
+        
+        .presentation-container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .slide-frame {
+            width: 1280px;
+            height: 800px;
+            border: none;
+            display: block;
+            border-bottom: 2px solid #e0e0e0;
+            page-break-after: always;
+            margin: 20px auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .slide-frame:last-child {
+            border-bottom: none;
+        }
+        
+        .navigation {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(28, 78, 128, 0.9);
+            padding: 10px 15px;
+            border-radius: 25px;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .nav-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            margin: 0 5px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .slide-counter {
+            color: white;
+            font-size: 14px;
+            margin: 0 10px;
+        }
+        
+        .slide-overview {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(28, 78, 128, 0.9);
+            padding: 10px;
+            border-radius: 10px;
+            z-index: 1000;
+            max-width: 300px;
+        }
+        
+        .slide-title {
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .slide-thumbnails {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: rgba(28, 78, 128, 0.95);
+            transition: left 0.3s ease;
+            z-index: 1001;
+            overflow-y: auto;
+            padding: 20px 10px;
+        }
+        
+        .slide-thumbnails.open {
+            left: 0;
+        }
+        
+        .thumbnail {
+            width: 100%;
+            height: 60px;
+            margin-bottom: 10px;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            cursor: pointer;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #1C4E80;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .thumbnail:hover {
+            border-color: #FF6B35;
+            transform: scale(1.05);
+        }
+        
+        .thumbnail.active {
+            border-color: #FF6B35;
+            background: #FFE5D9;
+        }
+        
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(28, 78, 128, 0.9);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 1002;
+            font-size: 16px;
+        }
+        
+        .print-button {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: rgba(255, 107, 53, 0.9);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 14px;
+        }
+        
+        .print-button:hover {
+            background: rgba(255, 107, 53, 1);
+        }
+        
+        @media print {
+            .navigation, .slide-overview, .slide-thumbnails, .menu-toggle, .print-button {
+                display: none !important;
+            }
+            
+            .slide-frame {
+                width: 1280px;
+                height: auto !important;
+                min-height: 720px;
+                page-break-after: always;
+                margin: 0 auto;
+                box-shadow: none;
+                overflow: visible !important;
+            }
+            
+            body {
+                padding: 0;
+                background: white;
+            }
+        }
+        
+        .slide-indicator {
+            position: fixed;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 1000;
+        }
+        
+        .indicator-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(28, 78, 128, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .indicator-dot.active {
+            background: #FF6B35;
+            transform: scale(1.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Navigation Controls -->
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="navigation">
+            <button class="nav-button" onclick="previousSlide()">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <span class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">12</span>
+            </span>
+            <button class="nav-button" onclick="nextSlide()">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <button class="print-button" onclick="window.print()">
+            <i class="fas fa-print"></i> 印刷
+        </button>
+        
+        <!-- Slide Thumbnails Menu -->
+        <div class="slide-thumbnails" id="thumbnailMenu">
+            <div class="thumbnail active" onclick="goToSlide(1)">スライド 1<br>タイトル</div>
+            <div class="thumbnail" onclick="goToSlide(2)">スライド 2<br>アジェンダ</div>
+            <div class="thumbnail" onclick="goToSlide(3)">スライド 3</div>
+            <div class="thumbnail" onclick="goToSlide(4)">スライド 4</div>
+            <div class="thumbnail" onclick="goToSlide(5)">スライド 5</div>
+            <div class="thumbnail" onclick="goToSlide(6)">スライド 6</div>
+            <div class="thumbnail" onclick="goToSlide(7)">スライド 7</div>
+            <div class="thumbnail" onclick="goToSlide(8)">スライド 8</div>
+            <div class="thumbnail" onclick="goToSlide(9)">スライド 9</div>
+            <div class="thumbnail" onclick="goToSlide(10)">スライド 10</div>
+            <div class="thumbnail" onclick="goToSlide(11)">スライド 11</div>
+            <div class="thumbnail" onclick="goToSlide(12)">スライド 12</div>
+        </div>
+        
+        <!-- Slide Progress Indicators -->
+        <div class="slide-indicator" id="slideIndicator">
+            <!-- Dots will be generated by JavaScript -->
+        </div>
+        
+        <!-- Current Slide Info -->
+        <div class="slide-overview">
+            <div class="slide-title" id="slideTitle">形状起因不具合検知システム</div>
+        </div>
+        
+        <!-- Slide Frames -->
+        <iframe class="slide-frame" id="slide1" src="page_1.html" data-title="形状起因不具合検知システム"></iframe>
+        <iframe class="slide-frame" id="slide2" src="page_2.html" data-title="本日のアジェンダ"></iframe>
+        <iframe class="slide-frame" id="slide3" src="page_3.html" data-title="スライド 3"></iframe>
+        <iframe class="slide-frame" id="slide4" src="page_4.html" data-title="スライド 4"></iframe>
+        <iframe class="slide-frame" id="slide5" src="page_5.html" data-title="スライド 5"></iframe>
+        <iframe class="slide-frame" id="slide6" src="page_6.html" data-title="スライド 6"></iframe>
+        <iframe class="slide-frame" id="slide7" src="page_7.html" data-title="スライド 7"></iframe>
+        <iframe class="slide-frame" id="slide8" src="page_8.html" data-title="スライド 8"></iframe>
+        <iframe class="slide-frame" id="slide9" src="page_9.html" data-title="スライド 9"></iframe>
+        <iframe class="slide-frame" id="slide10" src="page_10.html" data-title="スライド 10"></iframe>
+        <iframe class="slide-frame" id="slide11" src="page_11.html" data-title="スライド 11"></iframe>
+        <iframe class="slide-frame" id="slide12" src="page_12.html" data-title="スライド 12"></iframe>
+    </div>
+    
+    <script>
+        let currentSlideIndex = 1;
+        const totalSlides = 12;
+        
+        // Initialize slide indicators
+        function initializeIndicators() {
+            const indicatorContainer = document.getElementById('slideIndicator');
+            for (let i = 1; i <= totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'indicator-dot';
+                if (i === 1) dot.classList.add('active');
+                dot.onclick = () => goToSlide(i);
+                indicatorContainer.appendChild(dot);
+            }
+        }
+        
+        // Toggle thumbnail menu
+        function toggleMenu() {
+            const menu = document.getElementById('thumbnailMenu');
+            menu.classList.toggle('open');
+        }
+        
+        // Navigation functions
+        function nextSlide() {
+            if (currentSlideIndex < totalSlides) {
+                goToSlide(currentSlideIndex + 1);
+            }
+        }
+        
+        function previousSlide() {
+            if (currentSlideIndex > 1) {
+                goToSlide(currentSlideIndex - 1);
+            }
+        }
+        
+        function goToSlide(slideNumber) {
+            currentSlideIndex = slideNumber;
+            const slideElement = document.getElementById('slide' + slideNumber);
+            
+            // Scroll to the slide
+            slideElement.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+            
+            // Update counter
+            document.getElementById('currentSlide').textContent = slideNumber;
+            
+            // Update slide title
+            const title = slideElement.getAttribute('data-title');
+            document.getElementById('slideTitle').textContent = title;
+            
+            // Update active thumbnail
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach((thumb, index) => {
+                thumb.classList.toggle('active', index + 1 === slideNumber);
+            });
+            
+            // Update indicators
+            const indicators = document.querySelectorAll('.indicator-dot');
+            indicators.forEach((dot, index) => {
+                dot.classList.toggle('active', index + 1 === slideNumber);
+            });
+            
+            // Close menu after selection
+            document.getElementById('thumbnailMenu').classList.remove('open');
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                    previousSlide();
+                    break;
+                case 'Home':
+                    goToSlide(1);
+                    break;
+                case 'End':
+                    goToSlide(totalSlides);
+                    break;
+                case 'Escape':
+                    document.getElementById('thumbnailMenu').classList.remove('open');
+                    break;
+            }
+        });
+        
+        // Scroll-based slide tracking
+        let isScrolling = false;
+        window.addEventListener('scroll', function() {
+            if (isScrolling) return;
+            
+            const slides = document.querySelectorAll('.slide-frame');
+            const scrollTop = window.pageYOffset;
+            const windowHeight = window.innerHeight;
+            
+            slides.forEach((slide, index) => {
+                const slideTop = slide.offsetTop;
+                const slideHeight = slide.offsetHeight;
+                
+                if (scrollTop >= slideTop - windowHeight / 2 && 
+                    scrollTop < slideTop + slideHeight - windowHeight / 2) {
+                    const slideNumber = index + 1;
+                    if (slideNumber !== currentSlideIndex) {
+                        currentSlideIndex = slideNumber;
+                        
+                        // Update UI without scrolling
+                        document.getElementById('currentSlide').textContent = slideNumber;
+                        const title = slide.getAttribute('data-title');
+                        document.getElementById('slideTitle').textContent = title;
+                        
+                        // Update thumbnails
+                        const thumbnails = document.querySelectorAll('.thumbnail');
+                        thumbnails.forEach((thumb, thumbIndex) => {
+                            thumb.classList.toggle('active', thumbIndex + 1 === slideNumber);
+                        });
+                        
+                        // Update indicators
+                        const indicators = document.querySelectorAll('.indicator-dot');
+                        indicators.forEach((dot, dotIndex) => {
+                            dot.classList.toggle('active', dotIndex + 1 === slideNumber);
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Auto-resize iframes to show full content
+        function resizeIframes() {
+            const iframes = document.querySelectorAll('.slide-frame');
+            
+            iframes.forEach(iframe => {
+                iframe.onload = function() {
+                    try {
+                        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                        const body = iframeDoc.body;
+                        const html = iframeDoc.documentElement;
+                        
+                        // Get the full height of the content
+                        const height = Math.max(
+                            body.scrollHeight,
+                            body.offsetHeight,
+                            html.clientHeight,
+                            html.scrollHeight,
+                            html.offsetHeight
+                        );
+                        
+                        // Set iframe height to content height, minimum 720px
+                        iframe.style.height = Math.max(height, 720) + 'px';
+                        
+                        // Remove scrollbars from iframe content
+                        body.style.overflow = 'hidden';
+                        html.style.overflow = 'hidden';
+                        
+                    } catch (e) {
+                        // Cross-origin or other restrictions
+                        console.log('Cannot access iframe content:', e);
+                        // Fallback to larger fixed height
+                        iframe.style.height = '900px';
+                    }
+                };
+                
+                // Trigger resize if already loaded
+                if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+                    iframe.onload();
+                }
+            });
+        }
+        
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeIndicators();
+            resizeIframes();
+            
+            // Set initial slide title
+            const firstSlide = document.getElementById('slide1');
+            const title = firstSlide.getAttribute('data-title');
+            document.getElementById('slideTitle').textContent = title;
+        });
+        
+        // Prevent iframe navigation from affecting parent
+        document.querySelectorAll('.slide-frame').forEach(frame => {
+            frame.addEventListener('load', function() {
+                try {
+                    // Add event listeners to prevent navigation within iframes
+                    const iframeDoc = frame.contentDocument || frame.contentWindow.document;
+                    iframeDoc.addEventListener('click', function(e) {
+                        // Allow normal interactions but prevent navigation
+                        if (e.target.tagName === 'A' && e.target.getAttribute('href')) {
+                            e.preventDefault();
+                        }
+                    });
+                } catch (e) {
+                    // Cross-origin restrictions, ignore
+                }
+            });
+        });
+    </script>
+</body>
+</html>

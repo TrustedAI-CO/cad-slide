@@ -65,6 +65,26 @@
             overflow-y: auto;
             padding-bottom: 10px;
         }
+        
+        @media print {
+            body {
+                width: 1280px !important;
+                min-height: 720px !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            .slide {
+                width: 1280px !important;
+                min-height: 720px !important;
+                page-break-after: always;
+                box-shadow: none !important;
+                overflow: visible !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -243,11 +263,5 @@
 <i class="fas fa-play-circle mr-2"></i>
 <span class="font-semibold text-sm">次のアクション：PoC契約の締結に向けた協議を開始</span>
 </div> -->
-</div>
-<!-- Footer -->
-<div class="absolute bottom-4 w-full flex justify-between px-12 text-sm text-gray-500 z-10">
-<div>形状起因不具合検知システム 実装アプローチのご提案</div>
-<div>11 / 11</div>
-</div>
 </div>
 </body></html>

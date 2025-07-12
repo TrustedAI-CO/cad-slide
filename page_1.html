@@ -68,6 +68,26 @@
             z-index: 10;
             padding: 0 2rem;
         }
+        
+        @media print {
+            body {
+                width: 1280px !important;
+                min-height: 720px !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            .slide {
+                width: 1280px !important;
+                min-height: 720px !important;
+                page-break-after: always;
+                box-shadow: none !important;
+                overflow: visible !important;
+            }
+        }
     </style>
 </head>
 <body>

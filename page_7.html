@@ -64,6 +64,26 @@
             border-radius: 0.5rem;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
         }
+        
+        @media print {
+            body {
+                width: 1280px !important;
+                min-height: 720px !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            .slide {
+                width: 1280px !important;
+                min-height: 720px !important;
+                page-break-after: always;
+                box-shadow: none !important;
+                overflow: visible !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -189,11 +209,7 @@
 </div>
 </div>
 <!-- Footer -->
-<div class="absolute bottom-6 w-full flex justify-between px-12 text-sm text-gray-500 z-10">
-<div>形状起因不具合検知システム 実装アプローチのご提案</div>
-<div>7 / 11</div>
-</div>
-</div>
+
 <script>
     // Simple D3.js visualization for feasibility improvement
     document.addEventListener("DOMContentLoaded", function() {

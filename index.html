@@ -228,7 +228,7 @@
                 <i class="fas fa-chevron-left"></i>
             </button>
             <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">12</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">11</span>
             </span>
             <button class="nav-button" onclick="nextSlide()">
                 <i class="fas fa-chevron-right"></i>
@@ -252,7 +252,6 @@
             <div class="thumbnail" onclick="goToSlide(9)">スライド 9</div>
             <div class="thumbnail" onclick="goToSlide(10)">スライド 10</div>
             <div class="thumbnail" onclick="goToSlide(11)">スライド 11</div>
-            <div class="thumbnail" onclick="goToSlide(12)">スライド 12</div>
         </div>
         
         <!-- Slide Progress Indicators -->
@@ -277,12 +276,11 @@
         <iframe class="slide-frame" id="slide9" src="page_9.html" data-title="スライド 9"></iframe>
         <iframe class="slide-frame" id="slide10" src="page_10.html" data-title="スライド 10"></iframe>
         <iframe class="slide-frame" id="slide11" src="page_11.html" data-title="スライド 11"></iframe>
-        <iframe class="slide-frame" id="slide12" src="page_12.html" data-title="スライド 12"></iframe>
     </div>
     
     <script>
         let currentSlideIndex = 1;
-        const totalSlides = 12;
+        const totalSlides = 11;
         
         // Initialize slide indicators
         function initializeIndicators() {

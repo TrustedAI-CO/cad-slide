@@ -1,14 +1,14 @@
 <!DOCTYPE html><html lang="ja"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>8週間での技術検証・実現可能性確認（PoC詳細計画）</title>
+<title>実現可能性を70-80%まで向上させる体系的調査</title>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><style>
         body {
             width: 1280px; 
-            min-height: 800px; 
+            min-height: 720px; 
             margin: 0;
             padding: 0;
             font-family: "Meiryo UI", "Segoe UI", sans-serif;
@@ -17,8 +17,9 @@
         }
         .slide {
             width: 1280px;
-            min-height: 800px;
+            min-height: 720px;
             position: relative;
+            
         }
         .title {
             font-family: "Meiryo UI", "Segoe UI", sans-serif;
@@ -39,60 +40,29 @@
             height: 100%;
             z-index: 0;
         }
-        .timeline-phase {
+        .investigation-box {
+            border-left: 4px solid #1C4E80;
             transition: all 0.3s ease;
-            background: #f0f6ff;
-            border-radius: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            padding: 24px 20px;
-            width: 260px;
-            min-height: 320px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            position: relative;
-            z-index: 10;
+            height: 100%;
         }
-        .timeline-phase:hover {
-            transform: translateY(-5px);
+        .investigation-box:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .timeline-container {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 40px;
-            margin-top: 32px;
-            margin-bottom: 32px;
-            position: relative;
+        .content-area {
+            height: calc(100% - 160px);
+            
         }
-        .phase-connector {
+        .chart-container {
             position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #A9B7C0 60%, transparent 100%);
-            z-index: 1;
-        }
-        .content-container {
-            width: 100%;
-            padding-left: 48px;
-            padding-right: 48px;
-            padding-top: 32px;
-            padding-bottom: 32px;
+            top: 28px;
+            right: 12px;
             z-index: 10;
-        }
-        @media (max-width: 1100px) {
-            .timeline-container {
-                flex-direction: column;
-                gap: 24px;
-                align-items: center;
-            }
-            .timeline-phase {
-                width: 90vw;
-                min-width: 220px;
-            }
+            background-color: white;
+            background-opacity: 0.8;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
@@ -102,168 +72,180 @@
 <div class="grid-pattern"></div>
 <!-- Header -->
 <div class="w-full bg-gray-100 py-5 px-12 flex items-center border-b-4 border-blue-700 z-10">
-<h1 class="title text-3xl">8週間での技術検証・実現可能性確認（PoC詳細計画）</h1>
+<h1 class="title text-4xl">実現可能性を<span class="accent">80-90%</span>まで向上させる体系的調査</h1>
 </div>
-<!-- Content Container -->
-<div class="content-container w-full px-12 py-6 z-10">
-<div class="text-gray-600 mb-6">1-2ヶ月間のPoCにおける週次の作業内容と目標成果を明確化します。</div>
-<!-- Timeline -->
-<div class="timeline-container mt-4">
-<!-- Timeline Connector -->
-<div class="absolute top-1/2 left-0 right-0 h-1 bg-gray-300 z-0" style="transform: translateY(-2px);"></div>
-<!-- Phase 1: Week 1-2 -->
-<div class="timeline-phase bg-blue-50 rounded-lg shadow-md p-5 w-64">
-<div class="flex items-center mb-3">
-<div class="bg-blue-700 text-white rounded-full w-8 h-8 flex items-center justify-center mr-2">
-<span class="font-semibold">1</span>
+<!-- Visualization of Feasibility Improvement -->
+<div class="chart-container">
+<div class="w-64 h-20" id="feasibility-chart"></div>
+<div class="text-center text-sm text-gray-600 mt-1">実現可能性の向上目標</div>
 </div>
-<h3 class="text-xl font-semibold text-blue-700">Week 1-2</h3>
-</div>
+<!-- Main Content -->
+<div class="content-area w-full px-12 py-6 z-10">
+<div class="grid grid-cols-2 gap-8 h-full">
+<!-- Investigation Area 1 -->
+<div class="investigation-box bg-blue-50 p-6 rounded-r-lg">
 <div class="flex items-center mb-4">
-<i class="fas fa-database text-3xl text-blue-400 mr-3"></i>
-<h4 class="text-lg font-medium">データ準備・前処理</h4>
+<div class="bg-blue-100 rounded-full p-3 mr-4">
+<i class="fas fa-drafting-compass text-xl text-blue-700"></i>
 </div>
-<ul class="text-gray-700 space-y-2 pl-2">
+<h3 class="text-2xl font-semibold text-gray-800">図面データ分析<span class="text-blue-600 text-lg ml-2">（定量調査）</span></h3>
+</div>
+<ul class="ml-4 space-y-3">
 <li class="flex items-start">
-<i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-<span>ターゲット形状を絞り、必要なアノテーション済みデータを減らす（200~500件）</span>
+<i class="fas fa-check-circle text-blue-600 mt-1 mr-2"></i>
+<span>投影図vs3面図の処理精度比較実験</span>
 </li>
 <li class="flex items-start">
-<i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-<span>ベテラン担当者とヒアリング</span>
+<i class="fas fa-check-circle text-blue-600 mt-1 mr-2"></i>
+<span>図面品質（解像度、フォーマット統一性）の影響度測定</span>
 </li>
-<!-- <li class="flex items-start">
-<i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-<span>ラスタPDF→ベクトル変換</span>
-</li> -->
 <li class="flex items-start">
-<i class="fas fa-bullseye text-orange-500 mt-1 mr-2"></i>
-<span>目標精度：85%以上</span>
+<i class="fas fa-check-circle text-blue-600 mt-1 mr-2"></i>
+<span>CADデータ活用可能性の技術検証</span>
 </li>
 </ul>
 </div>
-<!-- Phase 2: Week 3-4 -->
-<div class="timeline-phase bg-blue-50 rounded-lg shadow-md p-5 w-64">
-<div class="flex items-center mb-3">
-<div class="bg-blue-700 text-white rounded-full w-8 h-8 flex items-center justify-center mr-2">
-<span class="font-semibold">2</span>
-</div>
-<h3 class="text-xl font-semibold text-blue-700">Week 3-4</h3>
-</div>
+<!-- Investigation Area 2 -->
+<div class="investigation-box bg-orange-50 p-6 rounded-r-lg">
 <div class="flex items-center mb-4">
-<i class="fas fa-cogs text-3xl text-blue-400 mr-3"></i>
-<h4 class="text-lg font-medium">特徴量抽出・アルゴリズム開発</h4>
+<div class="bg-orange-100 rounded-full p-3 mr-4">
+<i class="fas fa-user-tie text-xl text-orange-600"></i>
 </div>
-<ul class="text-gray-700 space-y-2 pl-2">
+<h3 class="text-2xl font-semibold text-gray-800">不具合パターン体系化<span class="text-orange-600 text-lg ml-2">（定性調査）</span></h3>
+</div>
+<ul class="ml-4 space-y-3">
 <li class="flex items-start">
-<i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-<span>肉厚、角度等の特徴量自動抽出（10-15種類）</span>
+<i class="fas fa-check-circle text-orange-600 mt-1 mr-2"></i>
+<span>ベテラン3-5名へのインタビュー（各2時間×3回）</span>
 </li>
 <li class="flex items-start">
-<i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-<span>類似度計算アルゴリズムの実装・調整</span>
+<i class="fas fa-check-circle text-orange-600 mt-1 mr-2"></i>
+<span>肉厚以外の不具合要因15-20項目の特定・優先順位付け</span>
+</li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-orange-600 mt-1 mr-2"></i>
+<span>判定ルールの形式知化（if-thenルール50-100個）</span>
 </li>
 </ul>
 </div>
-<!-- Phase 3: Week 5-6 -->
-<div class="timeline-phase bg-blue-50 rounded-lg shadow-md p-5 w-64">
-<div class="flex items-center mb-3">
-<div class="bg-blue-700 text-white rounded-full w-8 h-8 flex items-center justify-center mr-2">
-<span class="font-semibold">3</span>
-</div>
-<h3 class="text-xl font-semibold text-blue-700">Week 5-6</h3>
-</div>
+<!-- Investigation Area 3 -->
+<div class="investigation-box bg-green-50 p-6 rounded-r-lg">
 <div class="flex items-center mb-4">
-<i class="fas fa-brain text-3xl text-blue-400 mr-3"></i>
-<h4 class="text-lg font-medium">予測モデル構築・検証</h4>
+<div class="bg-green-100 rounded-full p-3 mr-4">
+<i class="fas fa-cubes text-xl text-green-600"></i>
 </div>
-<ul class="text-gray-700 space-y-2 pl-2">
+<h3 class="text-2xl font-semibold text-gray-800">部品分類最適化</h3>
+</div>
+<ul class="ml-4 space-y-3">
 <li class="flex items-start">
-<i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-<span>機械学習モデル（RandomForest、SVM等）構築</span>
+<i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+<span>現在の部品分類vs形状ベース分類の効果比較</span>
 </li>
 <li class="flex items-start">
-<i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-<span>交差検証による精度評価</span>
+<i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+<span>特殊形状部品（全体の何%？）への対応方法検討</span>
 </li>
 <li class="flex items-start">
-<i class="fas fa-bullseye text-orange-500 mt-1 mr-2"></i>
-<span>目標精度：80%以上</span>
+<i class="fas fa-lightbulb text-yellow-500 mt-1 mr-2"></i>
+<span class="text-gray-700">新規クラスタリング手法の提案と効果検証</span>
 </li>
 </ul>
 </div>
-<!-- Phase 4: Week 7-8 -->
-<div class="timeline-phase bg-blue-50 rounded-lg shadow-md p-5 w-64">
-<div class="flex items-center mb-3">
-<div class="bg-blue-700 text-white rounded-full w-8 h-8 flex items-center justify-center mr-2">
-<span class="font-semibold">4</span>
-</div>
-<h3 class="text-xl font-semibold text-blue-700">Week 7-8</h3>
-</div>
+<!-- Investigation Area 4 -->
+<div class="investigation-box bg-purple-50 p-6 rounded-r-lg">
 <div class="flex items-center mb-4">
-<i class="fas fa-laptop-code text-3xl text-blue-400 mr-3"></i>
-<h4 class="text-lg font-medium">プロトタイプ開発・評価</h4>
+<div class="bg-purple-100 rounded-full p-3 mr-4">
+<i class="fas fa-cogs text-xl text-purple-600"></i>
 </div>
-<ul class="text-gray-700 space-y-2 pl-2">
+<h3 class="text-2xl font-semibold text-gray-800">運用要件明確化</h3>
+</div>
+<ul class="ml-4 space-y-3">
 <li class="flex items-start">
-<i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-<span>Webベース検索・予測システムの構築</span>
+<i class="fas fa-check-circle text-purple-600 mt-1 mr-2"></i>
+<span>許容誤検知率・見逃し率の設定（業務影響度から逆算）</span>
 </li>
 <li class="flex items-start">
-<i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-<span>ベテラン担当者による実用性評価</span>
+<i class="fas fa-check-circle text-purple-600 mt-1 mr-2"></i>
+<span>既存設計プロセスへの組み込み方法の検討</span>
 </li>
 <li class="flex items-start">
-<i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-<span>フィードバック収集・次フェーズ計画調整</span>
+<i class="fas fa-check-circle text-purple-600 mt-1 mr-2"></i>
+<span>ユーザーインターフェース要件の定義</span>
 </li>
 </ul>
 </div>
 </div>
-<!-- Key Milestones -->
-<div class="mt-10 bg-gray-50 border-l-4 border-orange-500 pl-4 py-3 rounded-r-md">
-<h3 class="text-xl font-semibold text-gray-800 mb-2">主要マイルストーン</h3>
-<div class="flex justify-between pr-12">
+</div>
+<!-- Bottom Summary -->
+<div class="w-full flex justify-center z-10 px-12 mt-4">
+<div class="bg-gray-100 rounded-lg px-8 py-4 shadow-sm max-w-3xl">
 <div class="flex items-center">
-<i class="fas fa-flag-checkered text-orange-500 mr-2"></i>
-<span class="text-gray-700"><span class="font-semibold">Week 4:</span> 中間報告会 - データ前処理・特徴量抽出結果共有</span>
-</div>
-<div class="flex items-center">
-<i class="fas fa-flag-checkered text-orange-500 mr-2"></i>
-<span class="text-gray-700"><span class="font-semibold">Week 8:</span> 最終報告会 - 検証結果・ROI試算・次フェーズ判断</span>
-</div>
+<i class="fas fa-lightbulb text-yellow-500 text-xl mr-3"></i>
+<p class="text-gray-700">
+                    これらの体系的調査を通じて、<span class="font-bold">技術・データ・業務</span>の3側面から実現可能性を高め、
+                    確実な成果創出へとつなげます。
+                </p>
 </div>
 </div>
-<!-- Expected Outcomes -->
-<div class="mt-8 bg-blue-50 border border-blue-200 rounded-md p-4 z-10">
-<h3 class="text-lg font-semibold text-blue-700 mb-3">期待される成果</h3>
-<div class="flex justify-between">
-<div class="flex items-start w-1/3 px-2">
-<i class="fas fa-chart-line text-green-500 mt-1 mr-3"></i>
-<span>技術的実現可能性：<br/><span class="font-semibold accent">50-60% → 70-80%</span>への向上</span>
-</div>
-<div class="flex items-start w-1/3 px-2">
-<i class="fas fa-calculator text-green-500 mt-1 mr-3"></i>
-<span>具体的ROI試算：<br/>定量的コスト削減効果の算出</span>
-</div>
-<div class="flex items-start w-1/3 px-2">
-<i class="fas fa-map text-green-500 mt-1 mr-3"></i>
-<span>詳細実装計画：<br/>Phase2以降の具体的ロードマップ策定</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Abstract Tech Elements (for visual consistency) -->
-<div class="absolute top-24 right-10 flex space-x-3 z-0 opacity-40">
-<div class="w-3 h-12 bg-blue-200"></div>
-<div class="w-3 h-18 bg-blue-400"></div>
-<div class="w-3 h-9 bg-blue-600"></div>
-<div class="w-3 h-15 bg-blue-800"></div>
 </div>
 <!-- Footer -->
 <div class="absolute bottom-6 w-full flex justify-between px-12 text-sm text-gray-500 z-10">
 <div>形状起因不具合検知システム 実装アプローチのご提案</div>
-<div>7 / 12</div>
+<div>7 / 11</div>
 </div>
 </div>
+<script>
+    // Simple D3.js visualization for feasibility improvement
+    document.addEventListener("DOMContentLoaded", function() {
+        const svg = d3.select("#feasibility-chart")
+            .append("svg")
+            .attr("width", 260)
+            .attr("height", 80);
+        
+        // Data for current and target feasibility
+        const data = [
+            { label: "現状", value: 55, color: "#A9B7C0" },
+            { label: "目標", value: 85, color: "#FF6B35" }
+        ];
+        
+        // Draw bars
+        svg.selectAll("rect.bar")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("x", 70)
+            .attr("y", (d, i) => i * 30 + 5)
+            .attr("width", d => d.value * 1.5)
+            .attr("height", 20)
+            .attr("rx", 3)
+            .attr("fill", d => d.color);
+        
+        // Add labels
+        svg.selectAll("text.label")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "label")
+            .attr("x", 65)
+            .attr("y", (d, i) => i * 30 + 18)
+            .attr("text-anchor", "end")
+            .attr("font-size", "12px")
+            .attr("fill", "#333")
+            .text(d => d.label);
+        
+        // Add values
+        svg.selectAll("text.value")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "value")
+            .attr("x", d => 75 + d.value * 1.5)
+            .attr("y", (d, i) => i * 30 + 18)
+            .attr("text-anchor", "start")
+            .attr("font-size", "12px")
+            .attr("fill", "#333")
+            .text(d => d.value + "%");
+    });
+</script>
 </body></html>
